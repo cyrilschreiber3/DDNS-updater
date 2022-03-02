@@ -1,0 +1,40 @@
+{
+    "sites-list": [
+        {
+            "name": "Main site",
+            "url": "cyrilschreiber.ch"
+        },
+        {
+            "name": "Admin panel",
+            "url": "admin.cyrilschreiber.ch"
+        },
+        {
+            "name": "Mail server",
+            "url": "mail.cyrilschreiber.ch"
+        },
+        {
+            "name": "Cloud server",
+            "url": "data.cyrilschreiber.ch"
+        },
+        {
+            "name": "Radarr panel",
+            "url": "radarr.cyrilschreiber.ch"
+        },
+        {
+            "name": "Sonarr panel",
+            "url": "sonarr.cyrilschreiber.ch"
+        },
+        {
+            "name": "NZBGet",
+            "url": "nzbget.cyrilschreiber.ch"
+        },
+        {
+            "name": "Plex server",
+            "url": "plex.cyrilschreiber.ch"
+        },
+        {
+            "name": "Test environement",
+            "url": "test.cyrilschreiber.ch"
+        }
+    ]
+}
