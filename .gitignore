@@ -1,4 +1,10 @@
-**/logs
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
 .env
-v1
-.releases
+dist
+data.json
+.vscode

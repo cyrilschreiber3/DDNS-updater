@@ -1,0 +1,17 @@
+{
+    "lastRun": "26/10/2022 22:32:29",
+    "sitesList": [
+        {
+            "name": "site1",
+            "url": "site1.com"
+        },
+        {
+            "name": "site2",
+            "url": "site2.com"
+        },
+        {
+            "name": "site3",
+            "url": "site3.com"
+        }
+    ]
+}
