@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export default defineEventHandler(async (event) => {
     const domainToDelete = await readBody(event);
-    const filePath = 'assets/data/data.json';
+    const filePath = 'public/data/data.json';
     const file = JSON.parse(fs.readFileSync(filePath));
     const currentDomains = file.sitesList;
     //check if domain.url already exists

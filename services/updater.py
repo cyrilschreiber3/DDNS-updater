@@ -16,7 +16,7 @@ def getDateAndTime():
 
 print(f"Script started on {getDateAndTime()} \n")
 
-f = open("assets/data/data.json")
+f = open("public/data/data.json")
 data = json.load(f)
 
 print("Loading sites...", end=" ", flush=True)
@@ -41,7 +41,7 @@ print("Done !")
 print(report_response, "\n")
 
 data["lastRun"] = getDateAndTime()
-with open("assets/data/data.json", "w") as f:
+with open("public/data/data.json", "w") as f:
     json.dump(data, f, indent=4)
 
 print(f"Script done on {getDateAndTime()} ({round(time.time() - start, 2)} seconds)")
