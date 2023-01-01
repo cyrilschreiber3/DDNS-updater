@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  buildApp:
 
     runs-on: ubuntu-latest
 
@@ -26,9 +26,15 @@ jobs:
     - name: Build Nitro assets
       run: npm run build
     - name: Commit built assets
-      uses: zwaldowski/git-commit-action@v1
+      uses: stefanzweifel/git-auto-commit-action@v4.16.0
       with:
         commit_message: Nitro assets built
+
+  buildImage:
+
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
