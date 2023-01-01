@@ -7,16 +7,34 @@ const scriptBusy = ref(false);
 const showOutputDialog = ref(false);
 const outputMsg = ref('');
 
-const formData = ref({ domainLabel: "", domainURL: "" });
+const formData = ref({ domainLabel: "", domainURL: "", domainProvider: "" });
 
 onMounted(() => {
   getDomains();
+  getProviders();
+  getLastscriptRun();
 });
 
 const getDomains = () => {
   $fetch('/api/settings/show').then((res) => {
-    data.value = null;
-    data.value = res.data;
+    data.value.domains = null;
+    data.value.domains = res.data;
+  });
+};
+
+const getProviders = () => {
+  $fetch('/api/providers').then((res) => {
+    data.value.providers = null;
+    data.value.providers = res.data;
+  });
+};
+
+const getLastscriptRun = () => {
+  $fetch('/api/lastscriptrun').then((res) => {
+    let date = Date.parse(res.data);
+    let dateFormat = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: '2-digit', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, });
+    data.value.lastRun = null;
+    data.value.lastRun = dateFormat.format(res.data);
   });
 };
 
@@ -25,17 +43,18 @@ const runScript = () => {
   showOutputDialog.value = true;
   outputMsg.value = '';
 
-  $fetch('/api/run').then((res) => {
-    outputMsg.value = res;
+  axios.get('/api/runscript').then((res) => {
+    outputMsg.value = res.data;
     scriptBusy.value = false;
   }).then(() => {
-    getDomains();
+    getLastscriptRun();
   });
 };
 
 const addDomain = async () => {
   let newDomainLabel = formData.value.domainLabel;
   let newDomainURL = formData.value.domainURL;
+  let newDomainProvider = formData.value.domainProvider;
   showInvalidDomainLabel.value = false
 
   if (!newDomainURL.match(/^(((?!\-))(xn\-\-)?[a-z0-9\-_]{0,61}[a-z0-9]{1,1}\.)*(xn\-\-)?([a-z0-9\-]{1,61}|[a-z0-9\-]{1,30})\.[a-z]{2,}$/gim) || !newDomainLabel.match(/[a-z0-9]/gim)) {
@@ -43,14 +62,16 @@ const addDomain = async () => {
     return;
   }
 
-  await axios.post('/api/settings/update', {
+  await axios.post('/api/settings/add', {
     name: newDomainLabel,
-    url: newDomainURL
+    url: newDomainURL,
+    provider: newDomainProvider
   }).then((res) => {
     if (res.data.data.status == '200') {
       getDomains();
       formData.value.domainLabel = '';
       formData.value.domainURL = '';
+      formData.value.domainProvider = '';
     } else {
       console.alert(res.data.data.message);
     }
@@ -70,6 +91,7 @@ const deleteDomain = async (domain) => {
     }
   });
 };
+
 </script>
 
 <template>
@@ -93,7 +115,7 @@ const deleteDomain = async (domain) => {
         </div>
         <div v-if="outputMsg"
           class="whitespace-pre-line break-words text-left text-gray-200 rounded-2xl p-3 bg-gray-900">
-          <pre><code>{{ outputMsg }}</code></pre>
+          <pre>{{ JSON.stringify(outputMsg, null, 4) }}</pre>
         </div>
       </div>
     </Modal>
@@ -109,13 +131,15 @@ const deleteDomain = async (domain) => {
           <TableRow title="true">
             <TableTitleCell>Label</TableTitleCell>
             <TableTitleCell>Host</TableTitleCell>
+            <TableTitleCell>Provider</TableTitleCell>
             <TableTitleCell class="text-right">Delete</TableTitleCell>
           </TableRow>
         </template>
         <template #content>
-          <TableRow v-for="domain in data.sitesList" :key="domain.domain">
+          <TableRow v-for="domain in data.domains" :key="domain.domain">
             <TableCell>{{ domain.name }}</TableCell>
             <TableCell><a :href="'https://' + domain.url" class="hover:underline">{{ domain.url }}</a></TableCell>
+            <TableCell>{{ domain.provider }}</TableCell>
             <TableCell @click="deleteDomain({ domain })" class="text-right">
               <a class="text-blue-500 hover:text-blue-700 transition" href="#">Delete</a>
             </TableCell>
@@ -126,6 +150,12 @@ const deleteDomain = async (domain) => {
             </TableCell>
             <TableCell>
               <Input placeholder="New Domain" v-model="formData.domainURL" />
+            </TableCell>
+            <TableCell>
+              <Select v-model="formData.domainProvider" placeholder="Provider">
+                <option selected disabled hidden>Select a provider</option>
+                <option v-for="provider in data.providers" :key="provider" :value="provider">{{ provider }}</option>
+              </Select>
             </TableCell>
             <TableCell class="flex flex-row-reverse">
               <Button @click="addDomain()">Add</Button>

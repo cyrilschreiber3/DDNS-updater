@@ -6,5 +6,6 @@ node_modules
 .output
 .env
 dist
-data.json
+data/db/*
 .vscode
+!data/db/providers
