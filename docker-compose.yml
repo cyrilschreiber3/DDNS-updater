@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  app:
+    image: ddns-updater:latest
+    container_name: updater-app
+    restart: unless-stopped
+    depends_on:
+      - database
+    networks:
+      - updater-network
+    ports:
+      - 3000:3000
+    volumes:
+      - ./.env:/app/.env
+
+  database:
+    image: redis:alpine
+    container_name: updater-database
+    restart: unless-stopped
+    command: redis-server --save 20 1 --loglevel warning
+    networks:
+      - updater-network
+    volumes:
+      - app-data:/data
+
+  script-starter:
+    image: curlimages/curl:latest
+    container_name: updater-starter
+    restart: unless-stopped
+    depends_on:
+      - app
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "while true; do sleep 10; curl 'http://app:3000/api/runscript' -H 'Accept: application/json'; sleep 3600; done"
+      ]
+    networks:
+      - updater-network
+
+networks:
+  updater-network:
+    driver: bridge
+
+volumes:
+  app-data:
+    driver: local

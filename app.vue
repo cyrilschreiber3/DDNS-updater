@@ -31,9 +31,12 @@ const getProviders = () => {
 
 const getLastscriptRun = () => {
   $fetch('/api/lastscriptrun').then((res) => {
-    let date = Date.parse(res.data);
     let dateFormat = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: '2-digit', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, });
     data.value.lastRun = null;
+    if (res.data == 'Never') {
+      data.value.lastRun = 'never';
+      return;
+    }
     data.value.lastRun = dateFormat.format(res.data);
   });
 };

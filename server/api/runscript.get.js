@@ -2,12 +2,15 @@ import axios from 'axios';
 import { performance } from 'perf_hooks';
 
 const config = useRuntimeConfig()
-console.log(config)
 
 export default defineEventHandler(async (event) => {
     let startTime = performance.now();
 
-    const domains = await useStorage().getItem('db:subdomainList');
+    const domains = await useStorage().getItem(config.databaseName + ':subdomainList');
+
+    if (domains == null || domains.length == 0) {
+        return { status: 500, message: `No domains found` }
+    }
 
     let promises = [];
 
@@ -29,21 +32,29 @@ export default defineEventHandler(async (event) => {
     try {
         await axios.all(promises).then(axios.spread((...responses) => {
             responses.forEach(response => {
+                console.log(`Respone from ${response.config.url} for hostname "${response.config.params.hostname}": ${response.data}`)
                 // console.log(response.data);
             });
         }))
     } catch (error) {
         console.error(error);
+
+        if (error.response.data == 'badauth') {
+            return { status: 401, message: `Authentication failed for hostname "${error.response.config.params.hostname}"` }
+        }
+
         delete error.stack;
-        return { error }
+        return { status: 500, message: `Error while updating domain ${error.response.config.params.hostname}`, error }
     }
 
-    await useStorage().setItem('db:lastScriptRun', { "lastRun": Date.now() });
+    await useStorage().setItem(config.databaseName + ':lastScriptRun', { "lastRun": Date.now() });
 
     if (config.heartbeatURL) {
         try {
             await axios.get(config.heartbeatURL).then(response => {
-                console.log(response.data);
+                if (response.data) {
+                    console.log(response.data);
+                }
             })
         } catch (error) {
             console.error(error);
@@ -77,6 +88,7 @@ const createInfomaniakRequest = (username, password, domain) => {
             hostname: domain
         }
     });
-    console.log(`Requesting ${url} with params: username=${username}, password=${password}, hostname=${domain}`)
+    let hidenPassword = password.replace(/./g, '*');
+    console.log(`Requesting ${url} with params: username=${username}, password=${hidenPassword}, hostname=${domain}`)
     return request;
 }

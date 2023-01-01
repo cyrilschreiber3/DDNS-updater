@@ -8,4 +8,5 @@ node_modules
 dist
 data/db/*
 .vscode
+dump.rdb
 !data/db/providers
