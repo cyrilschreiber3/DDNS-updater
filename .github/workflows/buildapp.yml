@@ -10,8 +10,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  App:
-
+  build_app:
+    name: Build and commit Nitro assets
     runs-on: ubuntu-latest
 
     steps:
@@ -30,8 +30,9 @@ jobs:
       with:
         commit_message: Nitro assets built
 
-  Image:
-
+  build_docker_image:
+    name: Build and publish Docker image
+    needs: [build_app]
     runs-on: ubuntu-latest
     
     steps:
