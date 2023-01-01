@@ -23,8 +23,12 @@ jobs:
         cache: 'npm'
     - name: Install Dependencies
       run: npm ci
-    - run: npm run build
-    
+    - name: Build Nitro assets
+      run: npm run build
+    - name: Commit built assets
+      uses: zwaldowski/git-commit-action@v1
+      with:
+        commit_message: Nitro assets built
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -34,7 +38,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
+    - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         push: true
