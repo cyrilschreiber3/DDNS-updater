@@ -43,7 +43,7 @@ services:
       [
         "/bin/sh",
         "-c",
-        "while true; do sleep 10; curl 'http://app:3000/api/runscript' -H 'Accept: application/json'; sleep 3600; done"
+        "while true; do sleep 10; echo 'Triggering updater script'; curl 'http://app:3000/api/runscript' -s -H 'Accept: application/json'; sleep 3600; done"
       ]
     networks:
       - updater-network
