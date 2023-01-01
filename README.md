@@ -2,7 +2,7 @@
 
 Dynamic DNS Updater is a simple app that updates a DNS record on a DNS provider. It has a simple web interface to configure the DNS record to update. It uses the [Nuxt](https://nuxt.com/) framework that is based on [Vite](https://vitejs.dev/), [Vue3](https://vuejs.org/) and [Nitro](https://nitro.unjs.io/).
 
-The Updater script can be run manualy from the web interface or run periodically with api requests to `/api/runscript`.
+The Updater script can be run manually from the web interface or run periodically with api requests to `/api/runscript`.
 
 ## Installation
 You can easily deploy the app using docker compose with the following `docker-compose.yml` file:
