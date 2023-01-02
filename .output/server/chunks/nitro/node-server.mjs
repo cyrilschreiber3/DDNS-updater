@@ -426,56 +426,56 @@ const assets = {
   "/_nuxt/entry.00859889.js": {
     "type": "application/javascript",
     "etag": "\"20f23-qwQ6q6LMDY4l2yRE8+qWEZIdkRM\"",
-    "mtime": "2023-01-02T00:59:48.760Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 134947,
     "path": "../public/_nuxt/entry.00859889.js"
   },
   "/_nuxt/entry.fc129c6f.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"4c06-u5tQ43dsCGn474adz4i7Ywi06Og\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 19462,
     "path": "../public/_nuxt/entry.fc129c6f.css"
   },
   "/_nuxt/error-404.18ced855.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"e2e-F8gJ3uSz6Dg2HRyb374Ax3RegKE\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 3630,
     "path": "../public/_nuxt/error-404.18ced855.css"
   },
   "/_nuxt/error-404.460c2fa0.js": {
     "type": "application/javascript",
     "etag": "\"8a8-TMbP/wPezHa3vXCMS8lJYHxoKIM\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 2216,
     "path": "../public/_nuxt/error-404.460c2fa0.js"
   },
   "/_nuxt/error-500.bbf844fe.js": {
     "type": "application/javascript",
     "etag": "\"756-SCSS6BYnEfSb+FDyHzClX/sU6u0\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 1878,
     "path": "../public/_nuxt/error-500.bbf844fe.js"
   },
   "/_nuxt/error-500.e60962de.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"79e-VhleGjkSRH7z4cQDJV3dxcboMhU\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 1950,
     "path": "../public/_nuxt/error-500.e60962de.css"
   },
   "/_nuxt/error-component.2edc8662.js": {
     "type": "application/javascript",
     "etag": "\"465-DT/HOq8QTpTojvRlGcKObWrt/Yc\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 1125,
     "path": "../public/_nuxt/error-component.2edc8662.js"
   },
   "/_nuxt/preline.df15a64f.js": {
     "type": "application/javascript",
     "etag": "\"10c53-pIbabwjqHNs0bioV6xQBT+xlgg0\"",
-    "mtime": "2023-01-02T00:59:48.756Z",
+    "mtime": "2023-01-02T01:03:27.178Z",
     "size": 68691,
     "path": "../public/_nuxt/preline.df15a64f.js"
   }
