@@ -1,5 +1,4 @@
 *
 !package*.json
-!.env
 !.output
 !data/db/providers
