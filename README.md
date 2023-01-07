@@ -11,7 +11,7 @@ version: "3"
 
 services:
   app:
-    image: ddns-updater:latest
+    image: cyrilschreiber/ddns-updater:latest
     container_name: updater-app
     restart: unless-stopped
     depends_on:
